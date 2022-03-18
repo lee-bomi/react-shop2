@@ -13,6 +13,15 @@
   }
 }
 
+.door {
+  background-color: grey;
+  height : 250px;
+  padding-top: 50px;
+  background-image: url('./background.webp');
+  background-size: cover;
+  color : white;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
