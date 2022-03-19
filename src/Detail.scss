@@ -1,0 +1,25 @@
+@import './_reset.scss';
+
+$메인 : #ff0000;
+
+@mixin alert(){
+  background-color: burlywood;
+  padding: 20px;
+  border-radius: 5px;
+  margin: auto;
+}
+
+.my-alert {
+  @include alert();
+
+}
+
+.my-alert2 {
+  @extend .my-alert;
+  background-color: #61dafb;
+}
+.my-alert p {
+  margin-bottom: 0px;
+  font-family: HS봄바람체;
+  color : white;
+}
