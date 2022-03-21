@@ -1,11 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
 import styled from "styled-components";
 import './Detail.scss'
+import { Nav } from "react-bootstrap";
+import {CSSTransition} from "react-transition-group";
 
 function Detail(props) {
     let [alert, alert변경] = useState(true);
     let [값저장, 값저장변경] = useState('');
+    //let 재고 = useContext(재고context);
+    let [탭, 탭변경] = useState(0);
+    let [스위치, 스위치변경] = useState(false);
 
     useEffect(() => {
         let 타이머 = setTimeout(()=>{alert변경(false)}, 2000)
@@ -52,6 +57,26 @@ function Detail(props) {
                     }}>뒤로가기</button>
                 </div>
             </div>
+
+            <Nav className="mt-5" variant="tabs" defaultActiveKey="/home">
+                <Nav.Item>
+                    <Nav.Link eventKey="link-0" onClick={()=>{스위치변경(false); 탭변경(0)}}>Active</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link-1" onClick={()=>{스위치변경(false); 탭변경(1)}}>Option 2</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link-3" onClick={()=>{스위치변경(false); 탭변경(2)}}>Option 3</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="disabled" disabled>
+                        Disabled
+                    </Nav.Link>
+                </Nav.Item>
+            </Nav>
+            <CSSTransition in={스위치} classNames="wow" timeout={500}>
+                <TabContent 탭={탭} 스위치변경={스위치변경}></TabContent>
+            </CSSTransition>
         </div>
     )
 }
@@ -60,6 +85,19 @@ function Info(props) {
     return(
         <p>재고 : {props.재고[0]}</p>
     )
+}
+
+function TabContent(props) {
+
+    useEffect(()=>{
+        props.스위치변경(true);
+    });
+
+    if(props.탭 === 0){
+        return <div>0번째내용입니다</div>
+    } else if( props.탭 === 1 ){
+        return <div>1번째내용입니다</div>
+    } else return <div>2번째내용입니다</div>
 }
 
 export default Detail;

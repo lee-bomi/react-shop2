@@ -1,5 +1,6 @@
 @import './_reset.scss';
 
+
 $메인 : #ff0000;
 
 @mixin alert(){
@@ -22,4 +23,12 @@ $메인 : #ff0000;
   margin-bottom: 0px;
   font-family: HS봄바람체;
   color : white;
+}
+
+.wow-enter {
+  opacity: 0;
+}
+.wow-enter-active {
+  opacity: 1;
+  transition: all 500ms;
 }

@@ -1,12 +1,13 @@
 /* eslint-disable */
 import './App.css';
-import {useState} from "react";
+import {useContext, useState} from "react";
 import { Navbar, Container, Nav, NavDropdown, Button } from "react-bootstrap";
 import data from './data.js';
 import { Link, Route, Switch } from "react-router-dom"
 import Detail from './Detail';
 import axios from 'axios';
 
+//export let 재고context = React.createContext();      //범위지정
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
     let [반복, 반복변경] = useState(true);
     let [로딩중, 로딩중변경] = useState(false);
     let [재고, 재고변경] = useState([10,11,12])
+
 
   return (
     <div className="App">
@@ -43,21 +45,21 @@ function App() {
             <Jumbotron></Jumbotron>
             <div>
                 <div className="container">
-                    <div className="row">
+                        <div className="row">
 
-                        {
-                            shoes.map((a, i)=>{
-                                return (
-                                    <Card shoes={shoes[i]} i={i} key={i}></Card>
-                                )
-                            })
-                        }
-                        {
-                            로딩중 === true
-                            ? <p>로딩중입니다</p>
-                            : null
-                        }
-                    </div>
+                            {
+                                shoes.map((a, i)=>{
+                                    return (
+                                        <Card shoes={shoes[i]} i={i} key={i}></Card>
+                                    )
+                                })
+                            }
+                            {
+                                로딩중 === true
+                                ? <p>로딩중입니다</p>
+                                : null
+                            }
+                        </div>
                 </div>
                 <button className="btn btn-primary" onClick={()=>{
                     로딩중변경(true)
@@ -74,7 +76,7 @@ function App() {
         </Route>
 
         <Route path='/detail/:id'>
-            <Detail shoes={shoes} 재고={재고} 재고변경={재고변경}></Detail>
+             <Detail shoes={shoes} 재고={재고} 재고변경={재고변경}></Detail>
         </Route>
 
     </Switch>
@@ -96,6 +98,8 @@ function Jumbotron() {
     )
 }
 function Card(props) {
+
+    //let 재고 = useContext(재고context); //재고context라는 범위를 갖다가 씀
     return (
         <div className="col-md-4">
             <img src={'https://codingapple1.github.io/shop/shoes'+ (props.i+1) +'.jpg'} width="100%" />
