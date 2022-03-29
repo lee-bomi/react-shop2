@@ -18,16 +18,31 @@ let alert초기값 = true;
 //state가아닌 변수에 정의된 값을 수정하는방법은 따로있음
 //return되는 기본값은 state
 function reducer(state = 초기값, 액션) {
+    if (액션.type === '항목추가') {
+
+        let found = state.findIndex((a)=>{return a.id === 액션.payload.id})
+
+        if ( found >= 0 ) {
+            let copy = [...초기값];
+            copy[found].quan++;
+            return copy;
+        } else {
+            let copy = [...초기값];
+            copy.push(액션.payload);
+            return copy;
+        }
+
+    }
     if(액션.type === '수량증가'){
-        let copy  = [...초기값]
-        copy[0].quan++;
+        let copy  = [...초기값];
+        copy[액션.데이터].quan++;
         return copy;
     } else if(액션.type === '수량감소'){
         let copy = [...초기값];
-        copy[0].quan--;
+        copy[액션.데이터].quan--;
         return copy;
     } else {
-        return state
+        return state;
     }
 }
 

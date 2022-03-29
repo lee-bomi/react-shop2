@@ -4,6 +4,7 @@ import styled from "styled-components";
 import './Detail.scss'
 import { Nav } from "react-bootstrap";
 import {CSSTransition} from "react-transition-group";
+import {connect, useSelector} from "react-redux";
 
 function Detail(props) {
     let [alert, alert변경] = useState(true);
@@ -28,6 +29,8 @@ function Detail(props) {
       padding : 20px;
     `
 
+    let state = useSelector((state) => state.reducer);
+
     return(
         <div className="container">
             <div className="row">
@@ -51,7 +54,11 @@ function Detail(props) {
                     <p>{findItem.price}</p>
                     <Info 재고={props.재고}></Info>
 
-                    <button className="btn btn-danger" onClick={()=>{props.재고변경([9,10,11])}}>주문하기</button>
+                    <button className="btn btn-danger" onClick={()=>{
+                        props.재고변경([9,10,11])
+                        props.dispatch({type: '항목추가', payload : {id : findItem.id, name:findItem.title, quan : 4}})
+                        history.push('/cart');
+                    }}>주문하기</button>
                     <button className="btn btn-danger" onClick={()=>{
                         history.goBack();
                     }}>뒤로가기</button>
@@ -99,5 +106,12 @@ function TabContent(props) {
         return <div>1번째내용입니다</div>
     } else return <div>2번째내용입니다</div>
 }
+function bringStore(state){
+    return {
+        state : state.reducer,
+        alert열렸나오 : state.reducer2
+    }
+}
 
-export default Detail;
+export default connect(bringStore)(Detail)
+//export default Detail;

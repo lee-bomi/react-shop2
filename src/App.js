@@ -3,7 +3,7 @@ import './App.css';
 import {useContext, useState} from "react";
 import { Navbar, Container, Nav, NavDropdown, Button } from "react-bootstrap";
 import data from './data.js';
-import { Link, Route, Switch } from "react-router-dom"
+import {Link, Route, Switch, useHistory} from "react-router-dom"
 import Detail from './Detail';
 import axios from 'axios';
 import Cart from "./Cart";
@@ -104,9 +104,12 @@ function Jumbotron() {
 }
 function Card(props) {
 
+    //let 재고 = useContext(재고context);
+    let history = useHistory();
+
     //let 재고 = useContext(재고context); //재고context라는 범위를 갖다가 씀
     return (
-        <div className="col-md-4">
+        <div className="col-md-4" onClick={()=>{ history.push('/detail/' +(props.shoes.id +1))}}>
             <img src={'https://codingapple1.github.io/shop/shoes'+ (props.i+1) +'.jpg'} width="100%" />
             <h4 >{props.shoes.title}</h4>
             <p>{props.shoes.content}</p>
